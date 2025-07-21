@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer utilities {
+    .rotate-180 {
+        transform: rotate(180deg);
+    }
+    
+    .transition-all {
+        transition-property: all;
+    }
+    
+    .overflow-hidden {
+        overflow: hidden;
+    }
+}
+
+/* Animasi dropdown */
+[class*="Dropdown"] {
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efek hover untuk menu */
+#sidebar a.group:hover {
+    transform: translateX(5px);
+}
+
+#profileModal img {
+    border-radius: 50%;
+}
+
+/* Adjust main content margin based on sidebar state */
+#sidebar[data-collapsed="true"] + .flex-1 {
+    margin-left: 80px; /* Matches minimized sidebar width */
+}
+#sidebar[data-collapsed="false"] + .flex-1 {
+    margin-left: 256px; /* Matches full sidebar width (w-64 = 256px) */
+}
+@media (max-width: 768px) {
+    #sidebar + .flex-1 {
+        margin-left: 0; /* No margin on mobile since sidebar is hidden by default */
+    }
+}
+
+/* Logo size and hover adjustment */
+.logo-image {
+    transition: all 0.3s ease;
+}
+#sidebar[data-collapsed="false"] .logo-image {
+    height: 40px;
+    width: 40px;
+}
+#sidebar[data-collapsed="true"] .logo-image {
+    height: 30px;
+    width: 30px;
+}
+.logo-image:hover {
+    transform: scale(1.10);
+}

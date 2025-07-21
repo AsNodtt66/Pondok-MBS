@@ -1,0 +1,128 @@
+@extends('layouts.admin')
+
+@section('title', 'Tambah Santri Baru')
+
+@section('content')
+<div class="container-fluid">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Tambah Santri Baru</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ route('admin.santri.store') }}">
+                @csrf
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="Nama_santri">Nama Santri <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="Nama_santri" name="Nama_santri" 
+                               value="{{ old('Nama_santri') }}" required>
+                        @error('Nama_santri')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="form-group col-md-6">
+                        <label for="Santri_id">ID Santri <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="Santri_id" name="Santri_id" 
+                               value="{{ old('Santri_id') }}" required>
+                        @error('Santri_id')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="Tanggal_lhr">Tanggal Lahir <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="Tanggal_lhr" name="Tanggal_lhr" 
+                               value="{{ old('Tanggal_lhr') }}" required>
+                        @error('Tanggal_lhr')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="form-group col-md-4">
+                        <label for="Jenis_kelamin">Jenis Kelamin <span class="text-danger">*</span></label>
+                        <select class="form-control" id="Jenis_kelamin" name="Jenis_kelamin" required>
+                            <option value="">Pilih Jenis Kelamin</option>
+                            <option value="Laki-laki" {{ old('Jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                            <option value="Perempuan" {{ old('Jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                        </select>
+                        @error('Jenis_kelamin')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="form-group col-md-4">
+                        <label for="Status_aksk">Status <span class="text-danger">*</span></label>
+                        <select class="form-control" id="Status_aksk" name="Status_aksk" required>
+                            <option value="">Pilih Status</option>
+                            <option value="aktif" {{ old('Status_aksk') == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                            <option value="nonaktif" {{ old('Status_aksk') == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
+                        </select>
+                        @error('Status_aksk')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="Email">Email <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="Email" name="Email" 
+                               value="{{ old('Email') }}" required>
+                        @error('Email')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="form-group col-md-6">
+                        <label for="No_hp">No. HP <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="No_hp" name="No_hp" 
+                               value="{{ old('No_hp') }}" required>
+                        @error('No_hp')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="Wali_id">Wali</label>
+                        <select class="form-control" id="Wali_id" name="Wali_id">
+                            <option value="">Pilih Wali</option>
+                            @foreach($walis as $wali)
+                                <option value="{{ $wali->id }}" {{ old('Wali_id') == $wali->id ? 'selected' : '' }}>
+                                    {{ $wali->Nama_wali }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('Wali_id')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="form-group col-md-6">
+                        <label for="Kelas">Kelas</label>
+                        <input type="text" class="form-control" id="Kelas" name="Kelas" 
+                               value="{{ old('Kelas') }}">
+                        @error('Kelas')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="{{ route('admin.santri.index') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left mr-2"></i>Kembali
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save mr-2"></i>Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
